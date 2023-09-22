@@ -1,4 +1,10 @@
-import { StyleSheet, SafeAreaView, ScrollView, View, Text } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  View,
+  Button,
+} from "react-native";
 import { Stack, useRouter } from "expo-router";
 
 import { COLORS, SIZES } from "../constants";
@@ -13,6 +19,7 @@ export default function Home() {
       <Stack.Screen
         options={{
           title: "Stock Management",
+          headerRight: () => <Button title="Testing" />,
         }}
       />
 

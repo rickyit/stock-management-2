@@ -14,11 +14,11 @@ const COLORS = {
 };
 
 const SIZES = {
-  small: 14,
-  regular: 16,
-  medium: 18,
-  large: 20,
-  xlarge: 22,
+  small: 15,
+  regular: 17,
+  medium: 19,
+  large: 21,
+  xlarge: 23,
   borderRadius: 5,
 };
 
