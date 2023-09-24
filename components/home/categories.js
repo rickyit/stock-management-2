@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,25 +11,17 @@ import { collection, query, orderBy } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../library/firebase";
 
-import UpdateCategory from "./updatecategory";
 import Items from "./items";
 
 import { COLORS, SIZES } from "../../constants";
 
 export default function Categories() {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [data, loading, error] = useCollection(
     query(collection(db, "stocks"), orderBy("name")),
     {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-
-  useEffect(() => {
-    if (selectedCategory === null) setShowModal(false);
-    else setShowModal(true);
-  }, [selectedCategory]);
 
   return (
     <View style={styles.container}>
@@ -41,19 +32,19 @@ export default function Categories() {
           <View key={doc.id} style={styles.card}>
             <View style={styles.cardHeader}>
               <Text style={styles.cardTitle}>{doc.data().name}</Text>
-              <Pressable onPress={() => setSelectedCategory(doc.id)}>
-                <Feather name="arrow-right" size={24} color={COLORS.primary} />
-              </Pressable>
+              <Link href={`category/${doc.id}`} asChild>
+                <Pressable>
+                  <Feather
+                    name="arrow-right"
+                    size={24}
+                    color={COLORS.primary}
+                  />
+                </Pressable>
+              </Link>
             </View>
             <Items id={doc.id} />
           </View>
         ))}
-      <UpdateCategory
-        isVisible={showModal}
-        onClose={() => setSelectedCategory(null)}
-      />
-      <Text>{selectedCategory}</Text>
-      <Text>{showModal.toString()}</Text>
     </View>
   );
 }

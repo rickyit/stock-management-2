@@ -20,6 +20,7 @@ const SIZES = {
   large: 21,
   xlarge: 23,
   borderRadius: 5,
+  borderPadding: 5,
 };
 
 export { COLORS, SIZES };

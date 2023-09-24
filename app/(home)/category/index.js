@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
-import { Stack, Tabs } from "expo-router";
 
-export default function Category() {
+export default function CategoryHome() {
   return (
     <View>
-      <Tabs.Screen />
-      <Text>Categories</Text>
+      <Text>Category Home</Text>
     </View>
   );
 }

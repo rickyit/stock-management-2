@@ -1,4 +1,3 @@
-import { Button } from "react-native";
 import { Tabs } from "expo-router";
 import { Feather } from "@expo/vector-icons";
 
@@ -38,18 +37,12 @@ export default function HomeLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="category"
         options={{
-          tabBarLabel: "Category",
-          headerTitle: "Category Management",
-          tabBarIcon: () => (
-            <Feather
-              name="list"
-              size={SIZES.xlarge}
-              color={COLORS.colorLight}
-            />
-          ),
+          headerShown: false,
+          href: null,
         }}
       />
     </Tabs>
