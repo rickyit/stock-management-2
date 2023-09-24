@@ -4,8 +4,11 @@ import {
   View,
   TouchableOpacity,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
-import { collection, query, orderBy } from "firebase/firestore";
+import { Link } from "expo-router";
+import { Feather } from "@expo/vector-icons";
+import { collection, query, orderBy, doc, updateDoc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../library/firebase";
 
@@ -19,17 +22,40 @@ export default function Items({ id }) {
     }
   );
 
+  const handlePress = async (itemId, low) => {
+    console.log(id);
+    const docRef = doc(db, `stocks/${id}/items/`, itemId);
+    await updateDoc(docRef, { low }).then().catch();
+  };
+
   return (
     <View style={styles.cardContent}>
       {error && <Text>Error: {JSON.stringify(error)}</Text>}
       {loading && <ActivityIndicator visible={loading} />}
       {data &&
         data.docs.map((doc) => (
-          <TouchableOpacity>
-            <View style={styles.cardItem} key={doc.id}>
-              <Text style={styles.cardItemTitle}>{doc.data().name}</Text>
-            </View>
-          </TouchableOpacity>
+          <Pressable
+            key={doc.id}
+            style={styles.cardItemTitle}
+            onPress={() => handlePress(doc.id, !doc.data().low)}
+          >
+            <Text>
+              {doc.data().low ? (
+                <Feather
+                  name="toggle-right"
+                  size={SIZES.xlarge}
+                  color={COLORS.primary}
+                />
+              ) : (
+                <Feather
+                  name="toggle-left"
+                  size={SIZES.xlarge}
+                  color={COLORS.colorDark}
+                />
+              )}
+            </Text>
+            <Text style={styles.cardItemTitleText}>{doc.data().name}</Text>
+          </Pressable>
         ))}
     </View>
   );
@@ -42,9 +68,16 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   cardItemTitle: {
-    color: COLORS.colorBlack,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
     paddingHorizontal: SIZES.small,
     paddingVertical: 6,
+  },
+  cardItemTitleText: {
+    marginLeft: 5,
     fontSize: SIZES.regular,
+    color: COLORS.colorBlack,
   },
 });
