@@ -85,10 +85,10 @@ export default function RootLayout() {
         }}
       />
       <Stack.Screen
-        name="additem"
+        name="manageitem"
         options={{
           presentation: "modal",
-          title: "Add Item",
+          title: "Manage Item",
         }}
       />
     </Stack>

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { useGlobalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
-import CategoryForm from "../components/categories/form";
+import CategoryForm from "../components/categories/categoryform";
 
 export default function ManageCategory() {
   const { id } = useGlobalSearchParams();

@@ -50,7 +50,7 @@ export default function ListCategories({ handlePress }) {
                 </Link>
               </View>
             </View>
-            <ListItems id={doc.id} />
+            <ListItems categoryId={doc.id} />
           </View>
         ))}
     </View>

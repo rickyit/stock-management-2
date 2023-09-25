@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
+import { useGlobalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
-import ItemCategory from "../components/items/form";
+import ItemForm from "../components/items/itemform";
 
 export default function AddItem() {
+  const { categoryId, itemId } = useGlobalSearchParams();
   return (
     <View style={styles.container}>
-      <Text>Test</Text>
+      <ItemForm categoryId={categoryId} itemId={itemId} />
       <StatusBar style="light" />
     </View>
   );

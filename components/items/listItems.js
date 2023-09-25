@@ -13,17 +13,16 @@ import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function ListItems({ id }) {
+export default function ListItems({ categoryId }) {
   const [data, loading, error] = useCollection(
-    query(collection(db, `stocks/${id}/items`), orderBy("low", "desc")),
+    query(collection(db, `stocks/${categoryId}/items`), orderBy("low", "desc")),
     {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
 
   const handlePress = async (itemId, low) => {
-    console.log(id);
-    const docRef = doc(db, `stocks/${id}/items/`, itemId);
+    const docRef = doc(db, `stocks/${categoryId}/items/`, itemId);
     await updateDoc(docRef, { low }).then().catch();
   };
 
@@ -61,20 +60,34 @@ export default function ListItems({ id }) {
               </Text>
               <Text style={styles.cardItemText}>{doc.data().name}</Text>
             </Pressable>
-            <Pressable>
-              <Text>
-                <Feather
-                  name="chevron-right"
-                  size={SIZES.xlarge}
-                  color={COLORS.colorLightGray}
-                />
-              </Text>
-            </Pressable>
+            <Link
+              href={{
+                pathname: "manageitem",
+                params: { categoryId: categoryId, itemId: doc.id },
+              }}
+              asChild
+            >
+              <Pressable>
+                <Text>
+                  <Feather
+                    name="chevron-right"
+                    size={SIZES.xlarge}
+                    color={COLORS.colorLightGray}
+                  />
+                </Text>
+              </Pressable>
+            </Link>
           </View>
         ))
       ) : (
         <View style={[styles.cardItem, styles.cardItemLast]}>
-          <Link href="/" style={styles.itemCreateLink}>
+          <Link
+            href={{
+              pathname: "manageitem",
+              params: { categoryId: categoryId, itemId: 0 },
+            }}
+            style={styles.itemCreateLink}
+          >
             <Text>Add an item on this list</Text>
           </Link>
         </View>

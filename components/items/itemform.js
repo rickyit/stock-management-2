@@ -20,8 +20,44 @@ import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function ItemForm({ id }) {
+export default function ItemForm({ categoryId, itemId }) {
   const [name, setName] = useState("");
+  const docRef = doc(db, `stocks/${categoryId}/items`, itemId);
+  const dbRef = collection(db, `stocks/${categoryId}/items`);
+  const [data, loading, error] = useDocumentData(docRef);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (data) setName(data.name);
+  }, [data]);
+
+  const handleSubmit = async () => {
+    // Validate text input if value is not empty
+    if (name == "") {
+      Alert.alert("Try again!", "Please enter category name");
+      return;
+    }
+
+    // Update item if category already exist
+    if (data) await updateDoc(docRef, { name }).then(() => router.push("/"));
+    // Add item if category does not exist
+    else await addDoc(dbRef, { name }).then(() => router.push("/"));
+  };
+
+  const handleDelete = async () => {
+    Alert.alert("Confirmation", "Are you sure?", [
+      {
+        text: "Delete",
+        onPress: async () => {
+          await deleteDoc(docRef).then(() => router.push("/"));
+        },
+      },
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+    ]);
+  };
 
   return (
     <View style={styles.formContainer}>
@@ -58,7 +94,7 @@ export default function ItemForm({ id }) {
                 textAlign: "center",
               }}
             >
-              Delete Category
+              Delete Item
             </Text>
           </Pressable>
         )}
