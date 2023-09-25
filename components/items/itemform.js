@@ -15,7 +15,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
@@ -26,6 +26,15 @@ export default function ItemForm({ categoryId, itemId }) {
   const dbRef = collection(db, `stocks/${categoryId}/items`);
   const [data, loading, error] = useDocumentData(docRef);
   const router = useRouter();
+
+  if (!categoryId && !itemId) {
+    const [categories, loading, error] = useCollection(
+      query(collection(db, "stocks"), orderBy("name")),
+      {
+        snapshotListenOptions: { includeMetadataChanges: true },
+      }
+    );
+  }
 
   useEffect(() => {
     if (data) setName(data.name);
@@ -41,7 +50,7 @@ export default function ItemForm({ categoryId, itemId }) {
     // Update item if category already exist
     if (data) await updateDoc(docRef, { name }).then(() => router.push("/"));
     // Add item if category does not exist
-    else await addDoc(dbRef, { name }).then(() => router.push("/"));
+    else await addDoc(dbRef, { name, low: false }).then(() => router.push("/"));
   };
 
   const handleDelete = async () => {
@@ -65,7 +74,7 @@ export default function ItemForm({ categoryId, itemId }) {
         <TextInput
           style={styles.formControl}
           value={name}
-          placeholder="Category name"
+          placeholder="Item name"
           onChangeText={(text) => setName(text)}
         />
         <Pressable

@@ -11,11 +11,10 @@ export default function Home() {
   return (
     <SafeAreaProvider style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, paddingBottom: 40 }}>
           <ListCategories />
         </View>
       </ScrollView>
-      <StatusBar style="light" />
       <View style={styles.buttonsContainer}>
         <Link
           href={{
@@ -40,6 +39,7 @@ export default function Home() {
           </Pressable>
         </Link>
       </View>
+      <StatusBar style="light" />
     </SafeAreaProvider>
   );
 }
