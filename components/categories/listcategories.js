@@ -11,7 +11,7 @@ import { collection, query, orderBy } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../library/firebase";
 
-import ListItems from "./listItems";
+import ListItems from "../items/listItems";
 
 import { COLORS, SIZES } from "../../constants";
 
@@ -33,16 +33,9 @@ export default function ListCategories({ handlePress }) {
             <View style={styles.cardHeader}>
               <Text style={styles.cardTitle}>{doc.data().name}</Text>
               <View style={styles.cardButtons}>
-                {/* <Pressable>
-                  <Feather
-                    name="plus"
-                    size={SIZES.xlarge}
-                    color={COLORS.colorGray}
-                  />
-                </Pressable> */}
                 <Link
                   href={{
-                    pathname: "/manageCategoryModal",
+                    pathname: "/managecategory",
                     params: { id: doc.id },
                   }}
                   asChild
@@ -68,10 +61,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  card: {
-    borderBottomWidth: 1,
-    borderColor: COLORS.borderColorLight,
-  },
+  card: {},
   cardHeader: {
     padding: SIZES.small,
     flexDirection: "row",
@@ -82,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   cardTitle: {
-    color: COLORS.primary,
+    color: COLORS.colorGray,
     fontFamily: "RBT700",
     fontSize: SIZES.regular,
   },

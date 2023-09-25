@@ -2,20 +2,24 @@ const COLORS = {
   primary: "#ff234b",
   secondary: "#ee9a09",
 
+  colorWhite: "#ffffff",
   colorLight: "#ffffff",
-  colorGray: "#5a5a5a",
-  colorDark: "#343434",
+  colorLightGray: "#bababa",
+  colorGray: "#8a8a8a",
+  colorDarkGray: "#5a5a5a",
+  colorDark: "#3a3a3a",
   colorBlack: "#000000",
 
   bgColorWhite: "#ffffff",
   bgColorLight: "#f7f7f7",
   bgColorDark: "#333333",
 
-  borderColorLight: "#d7d7d7",
+  borderColorLight: "#e7e7e7",
 };
 
 const SIZES = {
   tiny: 6,
+  xxsmall: 10,
   xsmall: 13,
   small: 15,
   regular: 17,

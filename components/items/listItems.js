@@ -6,7 +6,7 @@ import {
   Pressable,
 } from "react-native";
 import { Link } from "expo-router";
-import { Feather } from "@expo/vector-icons";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 import { collection, query, orderBy, doc, updateDoc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../library/firebase";
@@ -32,32 +32,48 @@ export default function ListItems({ id }) {
       {error && <Text>Error: {JSON.stringify(error)}</Text>}
       {loading && <ActivityIndicator visible={loading} />}
       {data?.size ? (
-        data.docs.map((doc) => (
-          <Pressable
+        data.docs.map((doc, i) => (
+          <View
             key={doc.id}
-            style={styles.cardItemTitle}
-            onPress={() => handlePress(doc.id, !doc.data().low)}
+            style={[
+              styles.cardItem,
+              i === data.size - 1 ? styles.cardItemLast : "",
+            ]}
           >
-            <Text>
-              {doc.data().low ? (
+            <Pressable
+              style={styles.cardItemTitle}
+              onPress={() => handlePress(doc.id, !doc.data().low)}
+            >
+              <Text>
+                {doc.data().low ? (
+                  <MaterialIcons
+                    name="circle"
+                    size={SIZES.small}
+                    color={COLORS.primary}
+                  />
+                ) : (
+                  <MaterialIcons
+                    name="circle"
+                    size={SIZES.small}
+                    color={COLORS.colorGray}
+                  />
+                )}
+              </Text>
+              <Text style={styles.cardItemText}>{doc.data().name}</Text>
+            </Pressable>
+            <Pressable>
+              <Text>
                 <Feather
-                  name="toggle-right"
-                  size={SIZES.xxlarge}
-                  color={COLORS.primary}
+                  name="chevron-right"
+                  size={SIZES.xlarge}
+                  color={COLORS.colorLightGray}
                 />
-              ) : (
-                <Feather
-                  name="toggle-left"
-                  size={SIZES.xxlarge}
-                  color={COLORS.colorDark}
-                />
-              )}
-            </Text>
-            <Text style={styles.cardItemTitleText}>{doc.data().name}</Text>
-          </Pressable>
+              </Text>
+            </Pressable>
+          </View>
         ))
       ) : (
-        <View style={styles.itemCreate}>
+        <View style={[styles.cardItem, styles.cardItemLast]}>
           <Link href="/" style={styles.itemCreateLink}>
             <Text>Add an item on this list</Text>
           </Link>
@@ -69,27 +85,30 @@ export default function ListItems({ id }) {
 
 const styles = StyleSheet.create({
   cardContent: {
-    borderTopWidth: 1,
-    borderTopColor: COLORS.borderColorLight,
-    paddingVertical: 6,
+    borderRadius: SIZES.borderRadius,
+    backgroundColor: COLORS.bgColorWhite,
+  },
+  cardItemLast: {
+    borderBottomWidth: 0,
+  },
+  cardItem: {
+    padding: SIZES.small,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.borderColorLight,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   cardItemTitle: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingHorizontal: SIZES.small,
-    paddingVertical: SIZES.tiny,
   },
-  cardItemTitleText: {
+  cardItemText: {
     marginLeft: 7,
     fontSize: SIZES.regular,
     color: COLORS.colorBlack,
-  },
-  itemCreate: {
-    paddingHorizontal: SIZES.small,
-    paddingVertical: SIZES.tiny,
-    fontSize: SIZES.small,
   },
   itemCreateLink: {
     color: COLORS.primary,

@@ -1,8 +1,8 @@
 import { useCallback } from "react";
-import { Pressable, Platform } from "react-native";
+import { Pressable } from "react-native";
 import { Stack, Link } from "expo-router";
-import { useFonts } from "expo-font";
 import { Feather } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import { COLORS, SIZES } from "../constants";
@@ -16,7 +16,7 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     RBT100: require("../assets/fonts/Roboto/Roboto-Thin.ttf"),
     RBT100i: require("../assets/fonts/Roboto/Roboto-ThinItalic.ttf"),
     RBT300: require("../assets/fonts/Roboto/Roboto-Light.ttf"),
@@ -32,10 +32,10 @@ export default function RootLayout() {
   });
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) await SplashScreen.hideAsync();
-  }, [fontsLoaded]);
+    if (fontsLoaded || fontError) await SplashScreen.hideAsync();
+  }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded && !fontError) return null;
 
   return (
     <Stack
@@ -51,15 +51,21 @@ export default function RootLayout() {
           fontSize: SIZES.medium,
         },
         headerShadowVisible: true,
+        headerBackTitleVisible: false,
       }}
     >
       <Stack.Screen
         name="index"
         options={{
           title: "Stock Management",
-          headerTitle: "Stock Management",
           headerRight: () => (
-            <Link href="/manageCategoryModal" asChild>
+            <Link
+              href={{
+                pathname: "/additem",
+                params: { id: 0 },
+              }}
+              asChild
+            >
               <Pressable>
                 <Feather
                   name="plus"
@@ -72,11 +78,17 @@ export default function RootLayout() {
         }}
       />
       <Stack.Screen
-        name="manageCategoryModal"
+        name="managecategory"
         options={{
           presentation: "modal",
-          title: "Category",
-          headerTitle: "Manage Category",
+          title: "Manage Category",
+        }}
+      />
+      <Stack.Screen
+        name="additem"
+        options={{
+          presentation: "modal",
+          title: "Add Item",
         }}
       />
     </Stack>

@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { StyleSheet, SafeAreaView, ScrollView, View } from "react-native";
-import { Stack } from "expo-router";
+import { StyleSheet, ScrollView, View, Text } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 
 import { COLORS, SIZES } from "../constants";
-import ListCategories from "../components/home/listCategories";
+import ListCategories from "../components/categories/listcategories";
 
 export default function Home() {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaProvider style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ flex: 1 }}>
           <ListCategories />
         </View>
       </ScrollView>
       <StatusBar style="light" />
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.bgColorWhite,
+    backgroundColor: COLORS.bgColorLight,
+    paddingHorizontal: SIZES.small,
   },
 });
