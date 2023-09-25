@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   ActivityIndicator,
   Pressable,
 } from "react-native";
@@ -14,7 +13,7 @@ import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function Items({ id }) {
+export default function ListItems({ id }) {
   const [data, loading, error] = useCollection(
     query(collection(db, `stocks/${id}/items`), orderBy("low", "desc")),
     {
@@ -32,7 +31,7 @@ export default function Items({ id }) {
     <View style={styles.cardContent}>
       {error && <Text>Error: {JSON.stringify(error)}</Text>}
       {loading && <ActivityIndicator visible={loading} />}
-      {data &&
+      {data?.size ? (
         data.docs.map((doc) => (
           <Pressable
             key={doc.id}
@@ -56,7 +55,14 @@ export default function Items({ id }) {
             </Text>
             <Text style={styles.cardItemTitleText}>{doc.data().name}</Text>
           </Pressable>
-        ))}
+        ))
+      ) : (
+        <View style={styles.itemCreate}>
+          <Link href="/" style={styles.itemCreateLink}>
+            <Text>Add an item on this list</Text>
+          </Link>
+        </View>
+      )}
     </View>
   );
 }
@@ -73,11 +79,19 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: SIZES.small,
-    paddingVertical: 6,
+    paddingVertical: SIZES.tiny,
   },
   cardItemTitleText: {
     marginLeft: 7,
     fontSize: SIZES.regular,
     color: COLORS.colorBlack,
+  },
+  itemCreate: {
+    paddingHorizontal: SIZES.small,
+    paddingVertical: SIZES.tiny,
+    fontSize: SIZES.small,
+  },
+  itemCreateLink: {
+    color: COLORS.primary,
   },
 });

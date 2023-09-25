@@ -11,7 +11,7 @@ import { collection, query, orderBy } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../library/firebase";
 
-import Items from "./items";
+import ListItems from "./listItems";
 
 import { COLORS, SIZES } from "../../constants";
 
@@ -33,13 +33,13 @@ export default function ListCategories({ handlePress }) {
             <View style={styles.cardHeader}>
               <Text style={styles.cardTitle}>{doc.data().name}</Text>
               <View style={styles.cardButtons}>
-                <Pressable>
+                {/* <Pressable>
                   <Feather
                     name="plus"
                     size={SIZES.xlarge}
-                    color={COLORS.colorDark}
+                    color={COLORS.colorGray}
                   />
-                </Pressable>
+                </Pressable> */}
                 <Link
                   href={{
                     pathname: "/manageCategoryModal",
@@ -57,7 +57,7 @@ export default function ListCategories({ handlePress }) {
                 </Link>
               </View>
             </View>
-            <Items id={doc.id} />
+            <ListItems id={doc.id} />
           </View>
         ))}
     </View>
@@ -69,10 +69,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: COLORS.borderColorLight,
-    borderRadius: SIZES.borderRadius,
-    marginBottom: 10,
   },
   cardHeader: {
     padding: SIZES.small,
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   cardTitle: {
-    color: COLORS.colorDark,
+    color: COLORS.primary,
     fontFamily: "RBT700",
     fontSize: SIZES.regular,
   },

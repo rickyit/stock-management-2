@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flex: 1, padding: SIZES.small }}>
+        <View style={{ flex: 1 }}>
           <ListCategories />
         </View>
       </ScrollView>

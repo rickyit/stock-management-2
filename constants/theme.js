@@ -3,7 +3,7 @@ const COLORS = {
   secondary: "#ee9a09",
 
   colorLight: "#ffffff",
-  colorGray: "#7b7b7b",
+  colorGray: "#5a5a5a",
   colorDark: "#343434",
   colorBlack: "#000000",
 
@@ -15,6 +15,8 @@ const COLORS = {
 };
 
 const SIZES = {
+  tiny: 6,
+  xsmall: 13,
   small: 15,
   regular: 17,
   medium: 19,
