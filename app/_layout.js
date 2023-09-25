@@ -1,7 +1,8 @@
 import { useCallback } from "react";
-import { Platform, Button } from "react-native";
-import { Stack } from "expo-router";
+import { Pressable, Platform } from "react-native";
+import { Stack, Link } from "expo-router";
 import { useFonts } from "expo-font";
+import { Feather } from "@expo/vector-icons";
 import * as SplashScreen from "expo-splash-screen";
 
 import { COLORS, SIZES } from "../constants";
@@ -40,26 +41,44 @@ export default function RootLayout() {
     <Stack
       onLayout={onLayoutRootView}
       screenOptions={{
-        headerShown: false,
+        headerStyle: {
+          backgroundColor: COLORS.primary,
+        },
+        headerTintColor: COLORS.colorLight,
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          fontFamily: "RBT500",
+          fontSize: SIZES.medium,
+        },
+        headerShadowVisible: true,
       }}
     >
-      <Stack.Screen name="(home)" />
+      <Stack.Screen
+        name="index"
+        options={{
+          title: "Stock Management",
+          headerTitle: "Stock Management",
+          headerRight: () => (
+            <Link href="/manageCategoryModal" asChild>
+              <Pressable>
+                <Feather
+                  name="plus"
+                  size={SIZES.xlarge}
+                  color={COLORS.colorLight}
+                />
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="manageCategoryModal"
+        options={{
+          presentation: "modal",
+          title: "Category",
+          headerTitle: "Manage Category",
+        }}
+      />
     </Stack>
   );
 }
-
-// screenOptions={{
-//   headerStyle: {
-//     backgroundColor:
-//       Platform.OS === "ios"
-//         ? "rgba(255,255,255,0.00001)"
-//         : COLORS.bgColorWhite,
-//   },
-//   headerTintColor: COLORS.primary,
-//   headerTitleAlign: "center",
-//   headerTitleStyle: {
-//     fontFamily: "RBT500",
-//     fontSize: SIZES.medium,
-//   },
-//   headerShadowVisible: true,
-// }}

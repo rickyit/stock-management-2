@@ -15,7 +15,7 @@ import Items from "./items";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function Categories() {
+export default function ListCategories({ handlePress }) {
   const [data, loading, error] = useCollection(
     query(collection(db, "stocks"), orderBy("name")),
     {
@@ -32,15 +32,30 @@ export default function Categories() {
           <View key={doc.id} style={styles.card}>
             <View style={styles.cardHeader}>
               <Text style={styles.cardTitle}>{doc.data().name}</Text>
-              <Link href={`category/${doc.id}`} asChild>
+              <View style={styles.cardButtons}>
                 <Pressable>
                   <Feather
-                    name="arrow-right"
-                    size={24}
-                    color={COLORS.primary}
+                    name="plus"
+                    size={SIZES.xlarge}
+                    color={COLORS.colorDark}
                   />
                 </Pressable>
-              </Link>
+                <Link
+                  href={{
+                    pathname: "/manageCategoryModal",
+                    params: { id: doc.id },
+                  }}
+                  asChild
+                >
+                  <Pressable>
+                    <Feather
+                      name="arrow-right"
+                      size={SIZES.xlarge}
+                      color={COLORS.primary}
+                    />
+                  </Pressable>
+                </Link>
+              </View>
             </View>
             <Items id={doc.id} />
           </View>
@@ -64,6 +79,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  cardButtons: {
+    flexDirection: "row",
   },
   cardTitle: {
     color: COLORS.colorDark,

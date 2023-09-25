@@ -43,13 +43,13 @@ export default function Items({ id }) {
               {doc.data().low ? (
                 <Feather
                   name="toggle-right"
-                  size={SIZES.xlarge}
+                  size={SIZES.xxlarge}
                   color={COLORS.primary}
                 />
               ) : (
                 <Feather
                   name="toggle-left"
-                  size={SIZES.xlarge}
+                  size={SIZES.xxlarge}
                   color={COLORS.colorDark}
                 />
               )}
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   cardItemTitleText: {
-    marginLeft: 5,
+    marginLeft: 7,
     fontSize: SIZES.regular,
     color: COLORS.colorBlack,
   },

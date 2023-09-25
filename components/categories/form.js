@@ -19,13 +19,13 @@ export default function CategoryForm({ id }) {
 
   const handlePress = async () => {
     await updateDoc(docRef, { name })
-      .then(() => router.push("/home"))
+      .then(() => router.push("/"))
       .catch();
   };
 
   return (
-    <View style={{ padding: SIZES.small }}>
-      <Text style={styles.formLabel}>Name: *</Text>
+    <View style={styles.form}>
+      <Text style={styles.formLabel}>Name</Text>
       <TextInput
         style={styles.formControl}
         value={name}
@@ -47,9 +47,14 @@ export default function CategoryForm({ id }) {
 }
 
 const styles = StyleSheet.create({
+  form: {
+    padding: SIZES.small,
+    flex: 1,
+  },
   formLabel: {
     fontSize: SIZES.small,
-    marginBottom: 5,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   formControl: {
     borderWidth: 1,
@@ -59,7 +64,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: SIZES.small,
     color: COLORS.colorBlack,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   button: {
     borderRadius: SIZES.borderRadius,
