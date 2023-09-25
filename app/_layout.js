@@ -58,23 +58,6 @@ export default function RootLayout() {
         name="index"
         options={{
           title: "Stock Management",
-          headerRight: () => (
-            <Link
-              href={{
-                pathname: "/additem",
-                params: { id: 0 },
-              }}
-              asChild
-            >
-              <Pressable>
-                <Feather
-                  name="plus"
-                  size={SIZES.xlarge}
-                  color={COLORS.colorLight}
-                />
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Stack.Screen

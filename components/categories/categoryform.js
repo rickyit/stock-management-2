@@ -20,9 +20,9 @@ import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function CategoryForm({ id }) {
+export default function CategoryForm({ categoryId }) {
   const [name, setName] = useState("");
-  const docRef = doc(db, "stocks", id);
+  const docRef = doc(db, "stocks", categoryId);
   const dbRef = collection(db, "stocks");
   const [data, loading, error] = useDocumentData(docRef);
   const router = useRouter();

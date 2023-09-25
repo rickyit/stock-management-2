@@ -5,10 +5,10 @@ import { StatusBar } from "expo-status-bar";
 import CategoryForm from "../components/categories/categoryform";
 
 export default function ManageCategory() {
-  const { id } = useGlobalSearchParams();
+  const { categoryId } = useGlobalSearchParams();
   return (
     <View style={styles.container}>
-      <CategoryForm id={id} />
+      <CategoryForm categoryId={categoryId} />
       <StatusBar style="light" />
     </View>
   );

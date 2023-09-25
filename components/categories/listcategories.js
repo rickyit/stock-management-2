@@ -36,7 +36,7 @@ export default function ListCategories({ handlePress }) {
                 <Link
                   href={{
                     pathname: "/managecategory",
-                    params: { id: doc.id },
+                    params: { categoryId: doc.id },
                   }}
                   asChild
                 >
