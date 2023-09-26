@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Link } from "expo-router";
-import { Feather } from "@expo/vector-icons";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 import { collection, query, orderBy } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../library/firebase";
@@ -31,7 +31,23 @@ export default function ListCategories({ handlePress }) {
         data.docs.map((doc) => (
           <View key={doc.id} style={styles.card}>
             <View style={styles.cardHeader}>
-              <Text style={styles.cardTitle}>{doc.data().name}</Text>
+              <Link
+                href={{
+                  pathname: "manageitem",
+                  params: { categoryId: doc.id, itemId: 0 },
+                }}
+                style={styles.cardHeaderButton}
+                asChild
+              >
+                <Pressable>
+                  <Feather
+                    name="plus-circle"
+                    size={SIZES.small}
+                    color={COLORS.primary}
+                  />
+                  <Text style={styles.cardTitle}>{doc.data().name}</Text>
+                </Pressable>
+              </Link>
               <View style={styles.cardButtons}>
                 <Link
                   href={{
@@ -68,12 +84,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  cardHeaderButton: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   cardButtons: {
     flexDirection: "row",
   },
   cardTitle: {
-    color: COLORS.colorGray,
-    fontFamily: "RBT700",
+    color: COLORS.primary,
+    fontFamily: "RBT500",
     fontSize: SIZES.regular,
+    marginLeft: 7,
   },
 });

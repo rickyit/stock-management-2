@@ -15,7 +15,7 @@ import { COLORS, SIZES } from "../../constants";
 
 export default function ListItems({ categoryId }) {
   const [data, loading, error] = useCollection(
-    query(collection(db, `stocks/${categoryId}/items`), orderBy("low", "desc")),
+    query(collection(db, `stocks/${categoryId}/items`), orderBy("name", "asc")),
     {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
@@ -54,7 +54,7 @@ export default function ListItems({ categoryId }) {
                   <MaterialIcons
                     name="circle"
                     size={SIZES.small}
-                    color={COLORS.colorGray}
+                    color={COLORS.colorLightGray}
                   />
                 )}
               </Text>
@@ -88,7 +88,9 @@ export default function ListItems({ categoryId }) {
             }}
             style={styles.itemCreateLink}
           >
-            <Text>Add an item on this list</Text>
+            <Text style={styles.itemCreateLinkText}>
+              Add an item on this list
+            </Text>
           </Link>
         </View>
       )}
@@ -120,10 +122,15 @@ const styles = StyleSheet.create({
   },
   cardItemText: {
     marginLeft: 7,
-    fontSize: SIZES.regular,
+    fontFamily: "RBT400",
+    fontSize: SIZES.small,
     color: COLORS.colorBlack,
   },
   itemCreateLink: {
     color: COLORS.primary,
+  },
+  itemCreateLinkText: {
+    fontFamily: "RBT400",
+    fontSize: SIZES.small,
   },
 });

@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: COLORS.colorWhite,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "RBT500",
   },
   addCategoryButton: {
     flex: 1,
@@ -69,11 +69,17 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.borderRadius,
     marginRight: 4,
   },
+  addCategoryButtonText: {
+    fontFamily: "RBT400",
+  },
   addItemButton: {
     flex: 1,
     backgroundColor: COLORS.primary,
     padding: SIZES.xsmall,
     borderRadius: SIZES.borderRadius,
     marginLeft: 4,
+  },
+  addCategoryItemText: {
+    fontFamily: "RBT400",
   },
 });
