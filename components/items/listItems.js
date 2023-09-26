@@ -13,7 +13,7 @@ import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function ListItems({ categoryId }) {
+export default function ListItems({ categoryId, showAll }) {
   const [data, loading, error] = useCollection(
     query(collection(db, `stocks/${categoryId}/items`), orderBy("name", "asc")),
     {
@@ -36,6 +36,7 @@ export default function ListItems({ categoryId }) {
             key={doc.id}
             style={[
               styles.cardItem,
+              !showAll && !doc.data().low ? styles.cardItemHidden : "",
               i === data.size - 1 ? styles.cardItemLast : "",
             ]}
           >
@@ -113,6 +114,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  cardItemHidden: {
+    display: "none",
   },
   cardItemTitle: {
     flex: 1,

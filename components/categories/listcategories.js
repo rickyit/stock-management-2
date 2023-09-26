@@ -15,7 +15,7 @@ import ListItems from "../items/listItems";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function ListCategories({ handlePress }) {
+export default function ListCategories({ showAll }) {
   const [data, loading, error] = useCollection(
     query(collection(db, "stocks"), orderBy("name")),
     {
@@ -66,7 +66,7 @@ export default function ListCategories({ handlePress }) {
                 </Link>
               </View>
             </View>
-            <ListItems categoryId={doc.id} />
+            <ListItems categoryId={doc.id} showAll={showAll} />
           </View>
         ))}
     </View>

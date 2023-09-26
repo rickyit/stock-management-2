@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { StyleSheet, ScrollView, View, Text, Pressable } from "react-native";
-import * as Native from "react-native";
 import { Link } from "expo-router";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 
@@ -8,11 +9,13 @@ import { COLORS, SIZES } from "../constants";
 import ListCategories from "../components/categories/listcategories";
 
 export default function Home() {
+  const [showAll, setShowAll] = useState(true);
+
   return (
     <SafeAreaProvider style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flex: 1, paddingBottom: 40 }}>
-          <ListCategories />
+        <View style={{ flex: 1 }}>
+          <ListCategories showAll={showAll} />
         </View>
       </ScrollView>
       <View style={styles.buttonsContainer}>
@@ -23,21 +26,30 @@ export default function Home() {
           }}
           asChild
         >
-          <Pressable style={styles.addCategoryButton}>
+          <Pressable style={styles.button}>
+            <Feather
+              name="plus"
+              size={SIZES.regular}
+              color={COLORS.colorWhite}
+            />
             <Text style={styles.buttonText}>Add Category</Text>
           </Pressable>
         </Link>
-        <Link
-          href={{
-            pathname: "manageitem",
-            params: { categoryId: 0, itemId: 0 },
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            setShowAll(!showAll);
           }}
-          asChild
         >
-          <Pressable style={styles.addItemButton}>
-            <Text style={styles.buttonText}>Add Item</Text>
-          </Pressable>
-        </Link>
+          <Feather
+            name={showAll ? "eye-off" : "eye"}
+            size={SIZES.regular}
+            color={COLORS.colorWhite}
+          />
+          <Text style={styles.buttonText}>
+            {showAll ? "Hide Available" : "Show Available"}
+          </Text>
+        </Pressable>
       </View>
       <StatusBar style="light" />
     </SafeAreaProvider>
@@ -48,38 +60,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.bgColorLight,
-    paddingHorizontal: SIZES.small,
   },
   buttonsContainer: {
-    positon: "absolute",
+    flexDirection: "row",
+    positon: "fixed",
     width: "100%",
     height: "auto",
-    bottom: SIZES.small,
+    bottom: 0,
+    paddingHorizontal: -Math.abs(SIZES.small),
+  },
+  button: {
+    flex: 1,
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.primary,
+    height: 50,
   },
   buttonText: {
     color: COLORS.colorWhite,
-    textAlign: "center",
     fontFamily: "RBT500",
-  },
-  addCategoryButton: {
-    flex: 1,
-    backgroundColor: COLORS.primary,
-    padding: SIZES.xsmall,
-    borderRadius: SIZES.borderRadius,
-    marginRight: 4,
-  },
-  addCategoryButtonText: {
-    fontFamily: "RBT400",
-  },
-  addItemButton: {
-    flex: 1,
-    backgroundColor: COLORS.primary,
-    padding: SIZES.xsmall,
-    borderRadius: SIZES.borderRadius,
-    marginLeft: 4,
-  },
-  addCategoryItemText: {
-    fontFamily: "RBT400",
+    marginLeft: 2,
   },
 });
