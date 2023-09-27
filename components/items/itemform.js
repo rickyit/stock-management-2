@@ -20,7 +20,7 @@ import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function ItemForm({ categoryId, itemId }) {
+const ItemForm = ({ categoryId, itemId }) => {
   const [name, setName] = useState("");
   const docRef = doc(db, `stocks/${categoryId}/items`, itemId);
   const dbRef = collection(db, `stocks/${categoryId}/items`);
@@ -110,7 +110,7 @@ export default function ItemForm({ categoryId, itemId }) {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -143,3 +143,5 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.colorDark,
   },
 });
+
+export default ItemForm;

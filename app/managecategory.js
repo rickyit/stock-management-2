@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 
 import CategoryForm from "../components/categories/categoryform";
 
-export default function ManageCategory() {
+const ManageCategory = () => {
   const { categoryId } = useGlobalSearchParams();
   return (
     <View style={styles.container}>
@@ -12,7 +12,7 @@ export default function ManageCategory() {
       <StatusBar style="light" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default ManageCategory;

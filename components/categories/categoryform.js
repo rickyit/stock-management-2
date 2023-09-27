@@ -20,7 +20,7 @@ import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function CategoryForm({ categoryId }) {
+const CategoryForm = ({ categoryId }) => {
   const [name, setName] = useState("");
   const docRef = doc(db, "stocks", categoryId);
   const dbRef = collection(db, "stocks");
@@ -101,7 +101,7 @@ export default function CategoryForm({ categoryId }) {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   formContainer: {
@@ -134,3 +134,5 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.colorDark,
   },
 });
+
+export default CategoryForm;

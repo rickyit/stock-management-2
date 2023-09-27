@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 
 import ItemForm from "../components/items/itemform";
 
-export default function AddItem() {
+const ManageItem = () => {
   const { categoryId, itemId } = useGlobalSearchParams();
   return (
     <View style={styles.container}>
@@ -12,7 +12,7 @@ export default function AddItem() {
       <StatusBar style="light" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default ManageItem;

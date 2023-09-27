@@ -19,14 +19,15 @@ const COLORS = {
 
 const SIZES = {
   tiny: 6,
+  mini: 8,
   xxsmall: 10,
-  xsmall: 13,
-  small: 15,
-  regular: 17,
-  medium: 19,
-  large: 21,
-  xlarge: 23,
-  xxlarge: 25,
+  xsmall: 12,
+  small: 14,
+  regular: 16,
+  medium: 18,
+  large: 20,
+  xlarge: 22,
+  xxlarge: 24,
   borderRadius: 5,
   borderPadding: 5,
 };

@@ -8,13 +8,19 @@ import { StatusBar } from "expo-status-bar";
 import { COLORS, SIZES } from "../constants";
 import ListCategories from "../components/categories/listcategories";
 
-export default function Home() {
+const Home = () => {
   const [showAll, setShowAll] = useState(true);
 
   return (
     <SafeAreaProvider style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flex: 1 }}>
+        <View
+          style={{
+            flex: 1,
+            paddingHorizontal: SIZES.small,
+            paddingBottom: SIZES.small,
+          }}
+        >
           <ListCategories showAll={showAll} />
         </View>
       </ScrollView>
@@ -54,7 +60,7 @@ export default function Home() {
       <StatusBar style="light" />
     </SafeAreaProvider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: COLORS.primary,
-    height: 50,
+    height: 60,
   },
   buttonText: {
     color: COLORS.colorWhite,
@@ -83,3 +89,5 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
 });
+
+export default Home;

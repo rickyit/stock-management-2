@@ -15,7 +15,7 @@ import ListItems from "../items/listItems";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function ListCategories({ showAll }) {
+const ListCategories = ({ showAll }) => {
   const [data, loading, error] = useCollection(
     query(collection(db, "stocks"), orderBy("name")),
     {
@@ -71,7 +71,7 @@ export default function ListCategories({ showAll }) {
         ))}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
   },
   card: {},
   cardHeader: {
-    padding: SIZES.small,
+    paddingVertical: SIZES.regular,
+    paddingHorizontal: SIZES.small,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -98,3 +99,5 @@ const styles = StyleSheet.create({
     marginLeft: 7,
   },
 });
+
+export default ListCategories;

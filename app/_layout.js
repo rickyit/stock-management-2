@@ -15,7 +15,7 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+const AppLayout = () => {
   const [fontsLoaded, fontError] = useFonts({
     RBT100: require("../assets/fonts/Roboto/Roboto-Thin.ttf"),
     RBT100i: require("../assets/fonts/Roboto/Roboto-ThinItalic.ttf"),
@@ -76,4 +76,6 @@ export default function RootLayout() {
       />
     </Stack>
   );
-}
+};
+
+export default AppLayout;

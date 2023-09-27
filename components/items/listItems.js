@@ -13,7 +13,7 @@ import { db } from "../../library/firebase";
 
 import { COLORS, SIZES } from "../../constants";
 
-export default function ListItems({ categoryId, showAll }) {
+const ListItems = ({ categoryId, showAll }) => {
   const [data, loading, error] = useCollection(
     query(collection(db, `stocks/${categoryId}/items`), orderBy("name", "asc")),
     {
@@ -97,11 +97,13 @@ export default function ListItems({ categoryId, showAll }) {
       )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   cardContent: {
     borderRadius: SIZES.borderRadius,
+    borderWidth: 1,
+    borderColor: COLORS.borderColorLight,
     backgroundColor: COLORS.bgColorWhite,
   },
   cardItemLast: {
@@ -138,3 +140,5 @@ const styles = StyleSheet.create({
     fontSize: SIZES.small,
   },
 });
+
+export default ListItems;
