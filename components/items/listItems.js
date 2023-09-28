@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,6 +15,7 @@ import { db } from "../../library/firebase";
 import { COLORS, SIZES } from "../../constants";
 
 const ListItems = ({ categoryId, showAll }) => {
+  const updatingItem = useRef("");
   const [data, loading, error] = useCollection(
     query(collection(db, `stocks/${categoryId}/items`), orderBy("name", "asc")),
     {
@@ -22,15 +24,21 @@ const ListItems = ({ categoryId, showAll }) => {
   );
 
   const handlePress = async (itemId, low) => {
+    updatingItem.current = itemId;
     const docRef = doc(db, `stocks/${categoryId}/items/`, itemId);
-    await updateDoc(docRef, { low }).then().catch();
+    await updateDoc(docRef, { low })
+      .then(() => {
+        updatingItem.current = "";
+      })
+      .catch();
   };
 
   return (
     <View style={styles.cardContent}>
       {error && <Text>Error: {JSON.stringify(error)}</Text>}
-      {loading && <ActivityIndicator visible={loading} />}
-      {data?.size ? (
+      {loading ? (
+        <ActivityIndicator visible={loading} />
+      ) : data?.size ? (
         data.docs.map((doc, i) => (
           <View
             key={doc.id}
@@ -43,23 +51,38 @@ const ListItems = ({ categoryId, showAll }) => {
             <Pressable
               style={styles.cardItemTitle}
               onPress={() => handlePress(doc.id, !doc.data().low)}
+              disabled={updatingItem.current == doc.id ? true : false}
             >
-              <Text>
-                {doc.data().low ? (
-                  <MaterialIcons
-                    name="circle"
-                    size={SIZES.small}
-                    color={COLORS.primary}
-                  />
-                ) : (
-                  <MaterialIcons
-                    name="circle"
-                    size={SIZES.small}
-                    color={COLORS.colorLightGray}
-                  />
-                )}
+              {updatingItem.current == doc.id ? (
+                <ActivityIndicator
+                  size={SIZES.regular}
+                  color={COLORS.primary}
+                  visible={true}
+                />
+              ) : (
+                <Text>
+                  {doc.data().low ? (
+                    <MaterialIcons
+                      name="circle"
+                      size={SIZES.regular}
+                      color={COLORS.primary}
+                    />
+                  ) : (
+                    <MaterialIcons
+                      name="circle"
+                      size={SIZES.regular}
+                      color={COLORS.colorLightGray}
+                    />
+                  )}
+                </Text>
+              )}
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.cardItemText}
+              >
+                {doc.data().name}
               </Text>
-              <Text style={styles.cardItemText}>{doc.data().name}</Text>
             </Pressable>
             <Link
               href={{
@@ -101,6 +124,7 @@ const ListItems = ({ categoryId, showAll }) => {
 
 const styles = StyleSheet.create({
   cardContent: {
+    flex: 1,
     borderRadius: SIZES.borderRadius,
     borderWidth: 1,
     borderColor: COLORS.borderColorLight,
@@ -129,7 +153,7 @@ const styles = StyleSheet.create({
   cardItemText: {
     marginLeft: 7,
     fontFamily: "RBT400",
-    fontSize: SIZES.small,
+    fontSize: SIZES.regular,
     color: COLORS.colorBlack,
   },
   itemCreateLink: {

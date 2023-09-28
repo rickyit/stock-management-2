@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Link } from "expo-router";
-import { MaterialIcons, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { collection, query, orderBy } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../library/firebase";
@@ -33,32 +33,32 @@ const ListCategories = ({ showAll }) => {
             <View style={styles.cardHeader}>
               <Link
                 href={{
-                  pathname: "manageitem",
-                  params: { categoryId: doc.id, itemId: 0 },
+                  pathname: "/managecategory",
+                  params: { categoryId: doc.id },
                 }}
                 style={styles.cardHeaderButton}
                 asChild
               >
                 <Pressable>
+                  <Text style={styles.cardTitle}>{doc.data().name}</Text>
                   <Feather
-                    name="plus-circle"
-                    size={SIZES.small}
+                    name="arrow-right"
+                    size={SIZES.regular}
                     color={COLORS.primary}
                   />
-                  <Text style={styles.cardTitle}>{doc.data().name}</Text>
                 </Pressable>
               </Link>
               <View style={styles.cardButtons}>
                 <Link
                   href={{
-                    pathname: "/managecategory",
-                    params: { categoryId: doc.id },
+                    pathname: "manageitem",
+                    params: { categoryId: doc.id, itemId: 0 },
                   }}
                   asChild
                 >
                   <Pressable>
                     <Feather
-                      name="arrow-right"
+                      name="plus-circle"
                       size={SIZES.xlarge}
                       color={COLORS.primary}
                     />
@@ -94,9 +94,9 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     color: COLORS.primary,
-    fontFamily: "RBT500",
-    fontSize: SIZES.regular,
-    marginLeft: 7,
+    fontFamily: "RBT700",
+    fontSize: SIZES.large,
+    marginRight: 5,
   },
 });
 

@@ -1,5 +1,7 @@
 const COLORS = {
   primary: "#ff234b",
+  primaryLight: "#ff4869",
+  primaryDark: "#ff0a36",
   secondary: "#ee9a09",
 
   colorWhite: "#ffffff",
@@ -28,7 +30,7 @@ const SIZES = {
   large: 20,
   xlarge: 22,
   xxlarge: 24,
-  borderRadius: 5,
+  borderRadius: 10,
   borderPadding: 5,
 };
 

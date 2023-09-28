@@ -1,7 +1,5 @@
 import { useCallback } from "react";
-import { Pressable } from "react-native";
-import { Stack, Link } from "expo-router";
-import { Feather } from "@expo/vector-icons";
+import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -47,8 +45,8 @@ const AppLayout = () => {
         headerTintColor: COLORS.colorLight,
         headerTitleAlign: "center",
         headerTitleStyle: {
-          fontFamily: "RBT500",
-          fontSize: SIZES.medium,
+          fontFamily: "RBT700",
+          fontSize: SIZES.large,
         },
         headerShadowVisible: true,
         headerBackTitleVisible: false,

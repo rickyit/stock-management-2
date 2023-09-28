@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, ScrollView, View, Text, Pressable } from "react-native";
 import { Link } from "expo-router";
-import { MaterialIcons, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 
